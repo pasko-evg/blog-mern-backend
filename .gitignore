@@ -1,0 +1,7 @@
+# base cgf
+/node_modules
+/database
+/.idea
+
+# project cfg
+/uploads/*

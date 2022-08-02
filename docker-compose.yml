@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  db:
+    container_name: blog-mern-mongo-db
+    image: mongo
+    networks:
+      - blog-mern-network
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./database:/data/db
+    env_file:
+      - .env
+
+  mongo-express:
+    container_name: blog-mern-mongo-express
+    image: mongo-express
+    depends_on:
+      - db
+    networks:
+      - blog-mern-network
+    ports:
+      - '8081:8081'
+    volumes:
+      - ./database:/data/db
+    env_file:
+      - .env
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=blog-mern-mongo-db
+
+networks:
+  blog-mern-network:
+    driver: bridge
